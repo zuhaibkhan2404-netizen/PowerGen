@@ -124,6 +124,8 @@ textarea{min-height:100px;resize:vertical}
 input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);border-color:transparent}
 .formc .btns{margin-top:20px}
 .note{font-size:.84rem;color:var(--muted);margin:14px 0 0}
+.fab{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:25;background:#25D366;color:#06210f;border-radius:999px;padding:13px 20px;font:700 .95rem "DM Sans",sans-serif;text-decoration:none;box-shadow:0 8px 28px rgba(0,0,0,.35)}
+.ok{color:var(--accent);font-weight:700;margin:14px 0 0}
 footer{border-top:1px solid var(--line);padding:30px 0 44px;color:var(--muted);font-size:.9rem}
 footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 </style>
@@ -218,18 +220,21 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
     <div class="formc">
       <label for="f-name">Your name</label><input id="f-name" autocomplete="name">
       <label for="f-biz">Your business</label><input id="f-biz" autocomplete="organization">
+      <label for="f-contact">Your email or WhatsApp number</label><input id="f-contact" autocomplete="email">
       <label for="f-link">Website or Instagram (optional)</label><input id="f-link">
       <label for="f-svc">What do you need?</label>
       <select id="f-svc"><option>AI voice agent or receptionist</option><option>WhatsApp or email AI agent</option><option>3D website</option><option>Meta ads automation</option><option>Business automation</option><option>Not sure yet</option></select>
       <label for="f-msg">What is the main problem right now?</label><textarea id="f-msg"></textarea>
-      <div class="btns"><button class="btn" type="button" id="sendwa">Send on WhatsApp</button><button class="btn ghost" type="button" id="sendmail">Send by email</button></div>
-      <p class="note">This opens WhatsApp or your email app with your message ready to send.</p>
+      <div class="btns"><button class="btn" type="button" id="sendform">Send enquiry</button><button class="btn ghost" type="button" id="sendwa">Send on WhatsApp</button></div>
+      <p class="ok" id="status" role="status"></p>
+      <p class="note">Your enquiry goes straight to my email. You can also message me on WhatsApp.</p>
     </div>
   </div>
 </div></section>
 </main>
 
 <footer><div class="wrap"><span>© 2026 PowerGen. All rights reserved.</span><a href="#home">Back to top ↑</a></div></footer>
+<a class="fab" href="https://wa.me/923352167737?text=Hi%20Zuhaib%2C%20I%20saw%20your%20PowerGen%20portfolio." target="_blank" rel="noopener">Chat on WhatsApp</a>
 <div class="lb" id="lb"><img alt="" id="lbimg"></div>
 
 <script>
@@ -250,12 +255,24 @@ function msg(){
   var g=function(i){return document.getElementById(i).value.trim()};
   var t="Hi Zuhaib, I’m "+(g("f-name")||"interested in your services")+(g("f-biz")?" from "+g("f-biz"):"")+".\nI need: "+document.getElementById("f-svc").value+".";
   if(g("f-msg"))t+="\nMain problem: "+g("f-msg");
+  if(g("f-contact"))t+="\nContact: "+g("f-contact");
   if(g("f-link"))t+="\nLink: "+g("f-link");
   return t;
 }
 function go(u){var a=document.createElement("a");a.href=u;a.target="_blank";a.rel="noopener";document.body.appendChild(a);a.click();a.remove()}
 document.getElementById("sendwa").addEventListener("click",function(){go("https://wa.me/923352167737?text="+encodeURIComponent(msg()))});
-document.getElementById("sendmail").addEventListener("click",function(){go("mailto:ZuhaibKhan.PowerGen@gmail.com?subject="+encodeURIComponent("Project enquiry")+"&body="+encodeURIComponent(msg()))});
+var KEY="30436737-b16c-482c-9226-298809980895";
+var sf=document.getElementById("sendform"),st=document.getElementById("status");
+if(!KEY)sf.textContent="Send by email";
+sf.addEventListener("click",function(){
+  var g=function(i){return document.getElementById(i).value.trim()};
+  if(!g("f-name")||!g("f-contact")){st.textContent="Please add your name and how I can reach you.";return}
+  if(!KEY){go("mailto:ZuhaibKhan.PowerGen@gmail.com?subject="+encodeURIComponent("Project enquiry")+"&body="+encodeURIComponent(msg()));return}
+  sf.disabled=true;st.textContent="Sending…";
+  fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({access_key:KEY,subject:"New PowerGen enquiry from "+g("f-name"),from_name:"PowerGen portfolio",name:g("f-name"),business:g("f-biz"),contact:g("f-contact"),link:g("f-link"),service:document.getElementById("f-svc").value,message:g("f-msg")})})
+  .then(function(r){return r.json()}).then(function(d){if(d.success){st.textContent="Thank you! Your enquiry has been sent. I will get back to you soon.";sf.textContent="Sent"}else{throw 0}})
+  .catch(function(){sf.disabled=false;st.textContent="Could not send. Please use the WhatsApp button instead."});
+});
 </script>
 </body>
 </html>
