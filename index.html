@@ -102,9 +102,7 @@ section{padding:76px 0}
 .lb img{max-width:100%;max-height:100%;border-radius:10px}
 
 /* about */
-.about{display:grid;gap:34px;grid-template-columns:1fr;align-items:center}
-@media(min-width:800px){.about{grid-template-columns:260px 1fr}}
-.mono{aspect-ratio:1;max-width:260px;border-radius:28px;display:grid;place-items:center;font:800 4.4rem Sora,sans-serif;color:var(--accent);background:var(--surface);border:1px solid var(--line);box-shadow:0 0 60px var(--glow)}
+.about{max-width:680px;margin:0 auto;text-align:center}
 .about p{color:var(--muted)}
 
 /* why */
@@ -116,7 +114,8 @@ section{padding:76px 0}
 @media(min-width:860px){.cgrid{grid-template-columns:1fr 1.1fr}}
 .cinfo .card{margin-bottom:14px;padding:18px 22px}
 .cinfo small{color:var(--muted);display:block}
-.cinfo a{font:700 1.05rem Sora,sans-serif;text-decoration:none;word-break:break-all}
+.cinfo a{font:700 clamp(.8rem,4vw,1.05rem) "DM Sans",sans-serif;text-decoration:none;white-space:nowrap}
+.cinfo a.em{font-size:clamp(.72rem,3.4vw,1.05rem);word-break:normal;white-space:nowrap}
 .formc{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:24px}
 label{display:block;font-size:.88rem;color:var(--muted);margin:14px 0 6px}
 input,select,textarea{width:100%;background:var(--bg2);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font:400 1rem "DM Sans",sans-serif}
@@ -133,7 +132,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 <body>
 <header class="bar"><div class="wrap">
   <a class="logo" href="#home">POWER<span>GEN</span></a>
-  <nav class="links"><a href="#services">Services</a><a href="#proof">Results</a><a href="#work">Projects</a><a href="#about">About</a><a href="#why">Why me</a></nav>
+  <nav class="links"><a href="#services">Services</a><a href="#proof">Expertise</a><a href="#work">Projects</a><a href="#why">Why me</a><a href="#about">About</a></nav>
   <a class="btn" href="#contact">Book a free call</a>
 </div></header>
 
@@ -168,12 +167,12 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 </div></section>
 
 <section class="proof" id="proof"><div class="wrap">
-  <div class="head"><span class="kicker">Built, not promised</span><h2>What is already working</h2><p>Real numbers from workflows I have built, not made-up claims.</p></div>
+  <div class="head"><span class="kicker">The work behind it</span><h2>Professional automation takes real work</h2><p>These are long, multi-step builds, not quick templates. Every project connects several apps, handles the unexpected and is tested before it goes live.</p></div>
   <div class="stats">
-    <div class="stat"><b data-n="4">0</b><span>working n8n workflows built</span></div>
-    <div class="stat"><b data-n="16">0</b><span>nodes in the WhatsApp lead agent</span></div>
-    <div class="stat"><b data-n="5">0</b><span>tools my AI receptionist can call</span></div>
-    <div class="stat"><b>24/7</b><span>availability once an agent is live</span></div>
+    <div class="stat"><b>n8n</b><span>Long, multi-step workflows built from scratch</span></div>
+    <div class="stat"><b>Apps</b><span>WhatsApp, Gmail, Calendar, Sheets and CRMs connected together</span></div>
+    <div class="stat"><b>AI</b><span>Agents that reply, qualify leads and book on their own</span></div>
+    <div class="stat"><b>24/7</b><span>Availability once an agent is live</span></div>
   </div>
 </div></section>
 
@@ -188,17 +187,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   </div>
 </div></section>
 
-<section id="about"><div class="wrap">
-  <div class="about">
-    <div class="mono">ZK</div>
-    <div>
-      <span class="kicker">About</span>
-      <h2 style="margin-bottom:16px">Muhammad Zuhaib Khan</h2>
-      <p>Every workflow I build has a plan for the odd message, the busy calendar and the lead that needs a real person, so it keeps working when something unexpected happens.</p>
-      <p>PowerGen builds three things: AI agents that answer your customers, automations that remove repeat work, and 3D websites that make people stop scrolling.</p>
-    </div>
-  </div>
-</div></section>
+
 
 <section class="why" id="why"><div class="wrap">
   <div class="head"><span class="kicker">Why work with me</span><h2>Built to be trusted with your customers</h2></div>
@@ -215,7 +204,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   <div class="cgrid">
     <div class="cinfo">
       <div class="card"><small>WhatsApp</small><a href="https://wa.me/923352167737" target="_blank" rel="noopener">+92 335 2167737</a></div>
-      <div class="card"><small>Email</small><a href="mailto:ZuhaibKhan.PowerGen@gmail.com">ZuhaibKhan.PowerGen@gmail.com</a></div>
+      <div class="card"><small>Email</small><a class="em" href="mailto:ZuhaibKhan.PowerGen@gmail.com">ZuhaibKhan.PowerGen@gmail.com</a></div>
     </div>
     <div class="formc">
       <label for="f-name">Your name</label><input id="f-name" autocomplete="name">
@@ -229,6 +218,14 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
       <p class="ok" id="status" role="status"></p>
       <p class="note">Your enquiry goes straight to my email. You can also message me on WhatsApp.</p>
     </div>
+  </div>
+</div></section>
+<section id="about"><div class="wrap">
+  <div class="about">
+    <span class="kicker">About</span>
+    <h2 style="margin-bottom:16px">Muhammad Zuhaib Khan</h2>
+    <p>I’m an electrical engineer from NED University, with one year of hands-on experience building automations and working with local businesses.</p>
+    <p>I build AI agents that answer customers, n8n automations that remove repeat work, and 3D websites that make people stop scrolling. Every workflow has a plan for the odd message, the busy calendar and the lead that needs a real person.</p>
   </div>
 </div></section>
 </main>
